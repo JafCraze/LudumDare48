@@ -1,0 +1,293 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://Level.gd" type="Script" id=1]
+[ext_resource path="res://Sprites/Tile.png" type="Texture" id=2]
+[ext_resource path="res://Explosion.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Ball.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Target.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sounds/Explosion.wav" type="AudioStream" id=6]
+[ext_resource path="res://Sounds/Slide.wav" type="AudioStream" id=7]
+[ext_resource path="res://Sounds/SlideBack.wav" type="AudioStream" id=8]
+
+[sub_resource type="Animation" id=1]
+resource_name = "HideHalf"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Red:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.2, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.5, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Black:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.2, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Blue:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2, 1.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.75, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TileMap:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SlideBackSFX:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("TileMap:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "ShowRed"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Red:rect_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 1 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TileMap:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SlideSFX:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TileMap:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 28, 500 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 756, 20 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( 0, 0, 70, 0, 70, 50, 0, 50 )
+
+[sub_resource type="TileSet" id=6]
+0/name = "Tile.png 0"
+0/texture = ExtResource( 2 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 70, 50 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 9 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 9 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0.0134228, 1 )
+colors = PoolColorArray( 0.148438, 1, 0, 0.986413, 0.419608, 0.698039, 0.243137, 0.6 )
+
+[node name="LevelL" type="Node2D"]
+script = ExtResource( 1 )
+Ball = ExtResource( 4 )
+Target = ExtResource( 5 )
+Explosion = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Blue" type="ColorRect" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -700.0
+margin_top = -500.0
+margin_right = 700.0
+margin_bottom = 500.0
+mouse_filter = 2
+color = Color( 0, 0.227451, 0.364706, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Red" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 260.0
+margin_top = 40.0
+margin_right = -960.0
+margin_bottom = -40.0
+rect_scale = Vector2( 1e-05, 1 )
+mouse_filter = 2
+color = Color( 0.929412, 0.109804, 0.141176, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Black" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -440.0
+margin_top = 40.0
+margin_right = -1660.0
+margin_bottom = -40.0
+mouse_filter = 2
+color = Color( 0.913725, 0.898039, 0.894118, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+anims/HideHalf = SubResource( 1 )
+anims/ShowRed = SubResource( 2 )
+
+[node name="Walls" type="StaticBody2D" parent="."]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Col1" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 232, 540 )
+shape = SubResource( 3 )
+
+[node name="Col2" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 1688, 540 )
+shape = SubResource( 3 )
+
+[node name="Col3" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 960, 20 )
+shape = SubResource( 4 )
+
+[node name="Col4" type="CollisionShape2D" parent="Walls"]
+position = Vector2( 960, 1060 )
+shape = SubResource( 4 )
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2( -20, 40 )
+tile_set = SubResource( 6 )
+cell_size = Vector2( 70, 50 )
+format = 1
+
+[node name="TargetPos" type="Node" parent="."]
+
+[node name="BallPos" type="Node" parent="."]
+
+[node name="Targets" type="Node2D" parent="."]
+
+[node name="Balls" type="Node2D" parent="."]
+
+[node name="Laser" type="Line2D" parent="."]
+visible = false
+points = PoolVector2Array( 960, 540, 960, 340 )
+width_curve = SubResource( 7 )
+gradient = SubResource( 8 )
+begin_cap_mode = 2
+antialiased = true
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="ExplosionSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -50.0
+
+[node name="SlideSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = -50.0
+
+[node name="SlideBackSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -50.0
+
+[connection signal="animation_finished" from="Anim" to="." method="_on_Anim_animation_finished"]
